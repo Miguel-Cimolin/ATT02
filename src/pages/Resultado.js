@@ -1,49 +1,51 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View , Text, ImageBackground } from 'react-native';
-import { Table, Row, Rows } from 'react-native-table-component';
 import { StatusBar } from 'expo-status-bar';
 
-export default class ExampleOne extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tableHead: ['IMC', 'CLASSIFICAÇÃO'],
-      tableData: [
-        ['< 18,5', 'Baixo Peso'],
-        ['18,5 - 24,9', 'Peso Saudável'],
-        ['25,0 - 29,9', 'Sobrepeso'],
-        ['> 30,0', 'Obesidade']
-      ]
-    }
+
+export function Resultado(props) {
+  
+  const {IMCconversao} = props.route.params;
+
+  if (IMCconversao<=18.5) {
+    var result = "BAIXO PESO";
+  }else if (IMCconversao>18.5 && IMCconversao<=24.9) {
+    var result = "SAUDÁVEL";
+  } else if (IMCconversao>=25 && IMCconversao<=29.9) {
+    var result = "SOBREPESO";
+  } else if (IMCconversao>30) {
+    var result = "OBESIDADE";
   }
- 
-  render() {
-    const state = this.state;
+
     return (
-      <View style={styles.container}>
-        <View style={styles.biruleibe}><StatusBar style="auto" />
-          <ImageBackground style={styles.imagemFundo} source={require("./../assets/imagemfundo.jpg")} >
-          <Text style={styles.titulo}>{"\n\t\t\t"}  ACADEMIA{"\n\t\t\t\t\t"}4137</Text>
-          <Text style={styles.subtitulo}>! Meça seu índice de massa corporal !</Text>
-          </ImageBackground>
-        </View>
+     <View style={styles.container}>
+       <View style={styles.biruleibe}><StatusBar style="auto" />
+         <ImageBackground style={styles.imagemFundo} source={require("./../assets/imagemfundo.jpg")} >
+         <Text style={styles.titulo}>{"\n\t\t\t"}  ACADEMIA{"\n\t\t\t\t\t"}FIGHT</Text>
+         <Text style={styles.subtitulo}>! Meça seu índice de massa corporal !</Text>
+         </ImageBackground>
+       </View>
 
-      <View style={styles.biruleibe2}>
-        <Text style={styles.superior}>Seu IMC são de incriveis:</Text>
-        <Text style={styles.imc}>XX</Text>
-        <Text style={styles.inferior}>kg/m2</Text>
-      </View>
+     <View style={styles.biruleibe2}>
+       <Text style={styles.superior}>Seu IMC são de incriveis:</Text>
+       <Text style={styles.imc}>{IMCconversao.toFixed(2)}</Text>
+       <Text style={styles.inferior}>kg/m2{"\n"}</Text>
+      <Text style={styles.resultadinho}>{result}</Text>
+     </View>
 
-        <View style={styles.tabeladoida}>
-          <Table borderStyle={{borderWidth: 2, borderColor: '#CDB79E'}}>
-            <Row data={state.tableHead} style={styles.tabelaHead} textStyle={styles.tabelaText}/>
-            <Rows data={state.tableData} textStyle={styles.tabelaText}/>
-          </Table>
-        </View>
+     <View style={styles.biruleibe3}>
+        <Text style={styles.tabelaSup}>IMG(kg/m2){"\t\t"}Classificação</Text>
+        <Text style={styles.tabelaInf}>
+          {"\t"}{"<"} 18,5{"\t\t\t\t"}Baixo{"\n\n"}
+          {"\t"}18,5 - 24,9{"\t\t\t"}Saudável{"\n\n"}
+          {"\t"}25,0 - 29,9{"\t\t\t"}Sobrepeso{"\n\n"}
+          {"\t"}{">"} 30,0{"\t\t\t\t"}Obesidade{"\n\n"}
+        </Text>
       </View>
-    )
+    </View>
+   )
   }
-}
+
  
 const styles = StyleSheet.create({
   container: {
@@ -99,27 +101,38 @@ const styles = StyleSheet.create({
     shadowColor:"#f333",
     shadowRadius:4,
     elevation: 5,
-    borderRadius: 10
+    borderRadius: 10,
   },
-  tabeladoida:{ 
-    flex: 1, 
-    padding: 20, 
-    paddingTop: 8, 
-    backgroundColor: '#FAFAFA',
-    width: 333,
-    margin:'6%',
-    borderRadius:10
+  biruleibe3:{
+    backgroundColor: '#8B7D6B',
+    width: '90%',
+    height: '40%',
+    marginTop:20,
+    marginBottom: 10,
+    borderTopEndRadius:30,
+    borderTopStartRadius:30,
+    padding:10,
+    paddingBottom:10,
   },
-  tabelaHead:{ 
-    height: 40, 
-    backgroundColor: '#EED5B7' 
-  },
-  tabelaText:{ 
-    margin: 10,
-    fontStyle:"italic",
+  tabelaSup:{
+    fontSize:22,
     alignSelf:'center',
-    fontSize:15
-  },  
+    fontStyle:'italic',
+    backgroundColor:'#8B7D6B',
+    padding:10,
+  },
+  tabelaInf:{
+    fontSize:22,
+    alignSelf:'center',
+    backgroundColor:'#CDB79E', 
+    paddingBottom:2
+  },
+  resultadinho:{
+    color: "#f33",
+    fontSize:25,
+    alignSelf:'center',
+    fontWeight:"bold",
+  },
   superior:{
     fontSize:15,
     fontStyle:"normal",
@@ -127,7 +140,7 @@ const styles = StyleSheet.create({
   },
   imc:{
     alignSelf:'center',
-    fontSize:100
+    fontSize:65,
   },
   inferior:{
     fontSize:15,

@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import { Home } from './../pages/Home';
-import ExampleOne from './../pages/Resultado';
-//import { Sobre } from './../pages/Sobre';
+import { Resultado } from './../pages/Resultado';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -20,10 +20,8 @@ export function Routes() {
             inactiveBackgroundColor: '#C2c2c2',
           }}>
           <Drawer.Screen name="Home" component={Home}/>
-          <Drawer.Screen name="Resultado" component={ExampleOne}/>
+          <Drawer.Screen name="Resultado" component={Resultado}/>
         </Drawer.Navigator>
       </NavigationContainer>
     );
   }
-
-  //<Drawer.Screen name="Sobre" component={Sobre}/>
